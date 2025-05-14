@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
 const sequelize = require('./config/database'); // Importar la conexión a la base de datos
+const { Player, Warrior, Match, WarriorType, Race } = require('./models'); // Importar los modelos
 require('dotenv').config(); // Cargar variables de entorno
 
 // Middleware
 app.use(express.json());
 
-// Probar la conexión a la base de datos
+// Probar la conexión a la base de datos y sincronizar modelos
 sequelize.sync({ force: false }) // Cambia a true si quieres sobrescribir tablas existentes
   .then(() => console.log('Base de datos sincronizada'))
   .catch(err => console.error('Error al sincronizar la base de datos:', err));
