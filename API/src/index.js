@@ -4,6 +4,8 @@ const sequelize = require('./config/database'); // Importar la conexión a la ba
 const { Player, Warrior, Match, WarriorType, Race } = require('./models'); // Importar los modelos
 require('dotenv').config(); // Cargar variables de entorno
 
+const playerRoutes = require('./routes/playerRoutes'); // Importar las rutas de jugadores
+
 // Middleware
 app.use(express.json());
 
@@ -12,7 +14,10 @@ sequelize.sync({ force: false }) // Cambia a true si quieres sobrescribir tablas
   .then(() => console.log('Base de datos sincronizada'))
   .catch(err => console.error('Error al sincronizar la base de datos:', err));
 
-// Rutas de ejemplo
+// Rutas
+app.use('/players', playerRoutes); // Middleware para las rutas de jugadores
+
+// Ruta de ejemplo
 app.get('/', (req, res) => {
   res.send('¡Hola Mundo desde tu API!');
 });
